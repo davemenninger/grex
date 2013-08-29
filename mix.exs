@@ -1,8 +1,8 @@
-defmodule Goodreads.Mixfile do
+defmodule Grex.Mixfile do
   use Mix.Project
 
   def project do
-    [ app: :goodreads,
+    [ app: :grex,
       version: "0.0.1",
       elixir: "~> 0.10.1",
       deps: deps ]
@@ -17,7 +17,7 @@ defmodule Goodreads.Mixfile do
   # { :foobar, "~> 0.1", git: "https://github.com/elixir-lang/foobar.git" }
   defp deps do
     [{:httpotion, github: "myfreeweb/httpotion"},
-     {:erlsom,    github: "willemdj/erlsom"},
-     {:exactor,   github: "sasa1977/exactor"}]
+     {:exactor,   github: "sasa1977/exactor"},
+     {:mock,      github: "jjh42/mock"}]
   end
 end
