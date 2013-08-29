@@ -13,13 +13,14 @@ defmodule GrexTest do
   setup do
     Grex.start(@key)
     :ok
-  end 
+  end
 
   test_with_http_mock "list user shelves", :get, "shelves_list" do
     data = Grex.shelves(@user_id)
     assert data.total == 5
     [head | tail] = data.page.items
     assert head.name == "read"
+    assert head.id   == 17090812
   end
 
 end
