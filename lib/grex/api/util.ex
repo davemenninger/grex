@@ -3,10 +3,7 @@ defmodule Grex.API.Util do
   @doc "Convert a string value to a boolean"
   defp bool("true"),  do: true
   defp bool("false"), do: false
-  defp bool(other) do
-    IO.inspect(other)
-    other
-  end
+  defp bool(other),   do: false
 
   @doc "Convert a string value to an integer"
   defp int(str) do
