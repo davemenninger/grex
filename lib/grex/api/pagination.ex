@@ -1,12 +1,12 @@
 defmodule Grex.API.Pagination do
-	@moduledoc """
+  @moduledoc """
   Wrap 
-	"""
+  """
 
   defp count(node, attr) do
-  	case node |> XmlNode.attr(attr) |> String.to_integer do
-  		{i, ""} -> i
-  	end
+    case node |> XmlNode.attr(attr) |> String.to_integer do
+      {i, ""} -> i
+    end
   end
 
   @doc """
@@ -14,16 +14,16 @@ defmodule Grex.API.Pagination do
   using a provided function, and wrap the results in a Pager and 
   Page records.
   """
-	def build(node, func) do
-		alias Grex.API.Pagination.Pager, as: Pager
-		alias Grex.API.Pagination.Page,  as: Page
-		Pager.new(
-			total: count(node, :total),
-			page: Page.new(
-				start_item: count(node, :start),
-			  end_item:   count(node, :end),
-				items:      Enum.map(XmlNode.all(node, "/*/*"), func)))
-	end
+  def build(node, func) do
+    alias Grex.API.Pagination.Pager, as: Pager
+    alias Grex.API.Pagination.Page,  as: Page
+    Pager.new(
+      total: count(node, :total),
+      page: Page.new(
+        start_item: count(node, :start),
+        end_item:   count(node, :end),
+        items:      Enum.map(XmlNode.all(node, "/*/*"), func)))
+  end
 
 end
 

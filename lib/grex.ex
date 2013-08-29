@@ -8,7 +8,7 @@ defmodule Grex do
   @doc """
   Lists shelves for a user
 
-  Grex API method [shelves.list](http://www.Grex.com/api#shelves.list)
+  Grex API method [shelves.list](http://www.goodreads.com/api#shelves.list)
   """
   defapimethod :shelves, [user_id]
 
