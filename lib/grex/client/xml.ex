@@ -31,11 +31,11 @@ defrecord XmlNode, element: nil do
   def node_name(node), do: elem(node.element, 1)
  
   def attr(node, name), do: node |> xpath('./@#{name}') |> extract_attr
-  defp extract_attr([:xmlAttribute[value: value]]), do: to_unicode_binary(value)
+  defp extract_attr([:xmlAttribute[value: value]]), do: to_unicode_string(value)
   defp extract_attr(_), do: nil
  
   def text(node), do: node |> xpath('./text()') |> extract_text
-  defp extract_text([:xmlText[value: value]]), do: to_unicode_binary(value)
+  defp extract_text([:xmlText[value: value]]), do: to_unicode_string(value)
   defp extract_text(_), do: nil
   
   defp xpath(empty_node(), _), do: []
@@ -43,12 +43,12 @@ defrecord XmlNode, element: nil do
     :xmerl_xpath.string(to_char_list(path), node.element)
   end
  
-  defp to_unicode_binary(list) when is_list(list), do: :unicode.characters_to_binary(list)
-  defp to_unicode_binary(any), do: to_binary(any)
+  defp to_unicode_string(list) when is_list(list), do: :unicode.characters_to_binary(list)
+  defp to_unicode_string(any), do: to_string(any)
  
   defp to_unicode_char_list(input) do
     input
-    |> to_unicode_binary
+    |> to_unicode_string
     |> to_char_list
   end
 end
