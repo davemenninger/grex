@@ -2,5 +2,3 @@ language: elixir
 notifications:
   recipients:
     - brwcodes@gmail.com
-otp_release:
-  - R16B
