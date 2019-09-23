@@ -7,7 +7,7 @@ defmodule TestMacros do
       test_with_mock unquote(test_name),
         HTTPotion, [
           {:start, fn() -> end},
-          {unquote(method), fn(_url) -> %HTTPotion.Response{ body: fixture(unquote(fixture_name)) } end}
+          {unquote(method), fn(_url, _opts) -> %HTTPotion.Response{body: fixture(unquote(fixture_name))} end}
         ] do
         unquote(test_block)
       end

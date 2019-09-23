@@ -8,7 +8,11 @@ defmodule Grex.Client.Util do
 
   def get(path, query \\ []) do
     uri(path, query)
-    |> HTTPotion.get #( [ ibrowse: [ proxy_host: "http://proxy.whapps.internal", proxy_port: 8192 ] ] )
+    |> HTTPotion.get([ibrowse:
+      [
+        proxy_host: String.to_charlist(System.get_env("PROXY_HOST")),
+        proxy_port: String.to_integer(System.get_env("PROXY_PORT"))
+      ]])
     |> body
     |> parse
   end
