@@ -1,6 +1,8 @@
 defmodule Grex.Client do
-  use ExActor, export: :singleton
-  import Grex.Client.Util
+  use ExActor.GenServer, export: :singleton
+  #import Grex.Client.Util
+
+  defstart start_link(key), do: init(key)
 
   def init(key) do
     HTTPotion.start
@@ -8,7 +10,9 @@ defmodule Grex.Client do
   end
 
   defcall shelves(user_id), state: key do
-    get("shelf/list", [key: key, user_id: user_id]) |> Grex.API.shelves
+   pager = Grex.Client.Util.get("shelf/list", [key: key, user_id: user_id])
+   |> Grex.API.shelves
+   reply(pager)
   end
 
 end
