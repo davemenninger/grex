@@ -1,10 +1,13 @@
-defrecord Grex.API.Shelf, id: 0, book_count: 0, name: "", description: "",
-                          exclusive_flag: false, featured: false,
-                          per_page: 0, recommend_for: true, sort: true, sticky: false do 
+defmodule Grex.API.Shelf do
   import Grex.API.Util
+  require Record
+
+  Record.defrecord :shelf, id: 0, book_count: 0, name: "", description: "",
+                          exclusive_flag: false, featured: false,
+    per_page: 0, recommend_for: true, sort: true, sticky: false , order: ""
 
   def from_node(node) do
-    new(
+    shelf(
       id:             node |> value("id"),
       book_count:     node |> value("book_count"),
       exclusive_flag: node |> value("exclusive_flag"),
