@@ -2,7 +2,7 @@ defmodule Grex do
   import Grex.API.Macros
 
   def start(key) do
-    Grex.Client.start(key)
+    Grex.Client.start_link(key)
   end
 
   @doc """
