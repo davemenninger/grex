@@ -9,9 +9,7 @@ defmodule Grex.API.Pagination do
   """
 
   defp count(node, attr) do
-    case node |> XmlNode.attr(attr) |> String.to_integer do
-      i -> i
-    end
+    node |> XmlNode.attr(attr) |> String.to_integer
   end
 
   @doc """
