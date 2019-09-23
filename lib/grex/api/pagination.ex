@@ -1,8 +1,8 @@
 defmodule Grex.API.Pagination do
 
   require Record
-  Record.defrecord( :pager, foo: "", total: 0, page: nil )
-  Record.defrecord( :page, start_item: 0, end_item: 0, items: [] )
+  Record.defrecord :pager, foo: "", total: 0, page: nil
+  Record.defrecord :page, start_item: 0, end_item: 0, items: []
 
   @moduledoc """
   Wrap 
