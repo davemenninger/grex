@@ -2,9 +2,11 @@ defmodule Grex.Mixfile do
   use Mix.Project
 
   def project do
-    [ app: :grex,
+    [
+      app: :grex,
       version: "0.0.1",
-      deps: deps ]
+      deps: deps()
+    ]
   end
 
   # Configuration for the OTP application
