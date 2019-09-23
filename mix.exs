@@ -17,6 +17,7 @@ defmodule Grex.Mixfile do
   # { :foobar, "~> 0.1", git: "https://github.com/elixir-lang/foobar.git" }
   defp deps do
     [
+      {:credo, "~> 1.1"},
       {:httpotion, "~> 3.1"},
       {:exactor, "~> 2.2"},
       {:mock, "~> 0.3.3"}
