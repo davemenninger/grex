@@ -8,7 +8,7 @@ defmodule Grex.API.Util do
   @doc "Convert a string value to an integer"
   defp int(str) do
     case str |> String.to_integer do
-      {i, ""} -> i
+      i -> i
     end
   end
 
