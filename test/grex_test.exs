@@ -6,6 +6,9 @@ defmodule GrexTest do
   import TestMacros
   import TestFixtures
 
+  import Grex.API.Pagination
+  import XmlNode
+
   # Fake key
   @key "1cZmg3UyTIddH3AoH2R7qQ"
   @user_id 5281207
@@ -17,10 +20,18 @@ defmodule GrexTest do
 
   test_with_http_mock "list user shelves", :get, "shelves_list" do
     data = Grex.shelves(@user_id)
-    assert data.total == 5
-    [head | tail] = data.page.items
-    assert head.name == "read"
-    assert head.id   == 17090812
+    assert pager(data, :total) == 5
+
+    [head | _] = page(
+      pager(data, :page),
+      :items)
+    [name_element] = :xmerl_xpath.string('/user_shelf/name', head) 
+    [content] = xmlElement(name_element, :content)
+    assert xmlText(content, :value) == 'read'
+
+    [id_element] = :xmerl_xpath.string('/user_shelf/id', head) 
+    [content] = xmlElement(id_element, :content)
+    assert xmlText(content, :value) == '17090812'
   end
 
 end
