@@ -1,11 +1,16 @@
 defmodule Grex.API.Pagination do
+
+  require Record
+  Record.defrecord( :pager, foo: "", total: 0, page: nil )
+  Record.defrecord( :page, start_item: 0, end_item: 0, items: [] )
+
   @moduledoc """
   Wrap 
   """
 
   defp count(node, attr) do
     case node |> XmlNode.attr(attr) |> String.to_integer do
-      {i, ""} -> i
+      i -> i
     end
   end
 
@@ -14,23 +19,21 @@ defmodule Grex.API.Pagination do
   using a provided function, and wrap the results in a Pager and 
   Page records.
   """
-  def build(node, func) do
-    alias Grex.API.Pagination.Pager, as: Pager
-    alias Grex.API.Pagination.Page,  as: Page
-    Pager.new(
+  def build(node, _func) do
+    pager(
       total: count(node, :total),
-      page: Page.new(
+      page: page(
         start_item: count(node, :start),
         end_item:   count(node, :end),
-        items:      Enum.map(XmlNode.all(node, "/*/*"), func)))
+      items:      XmlNode.all(node, "/*/*")
+    )
+    )
   end
 
 end
 
 # TODO: Instead of holding onto a single page, keep multiple pages
 #       and a function to request data for new pages
-defrecord Grex.API.Pagination.Pager, total: 0, page: nil
-defrecord Grex.API.Pagination.Page,  start_item: 0, end_item: 0, items: []
 
 # So we can iterate over items in a page
 defimpl Enumerable, for: Grex.API.Pagination.Page do
